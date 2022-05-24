@@ -26,9 +26,9 @@
     <div data-role="header" data-theme='b'>
         <div data-role="navbar" data-theme='a'>
             <ul>               
-                <li><a href="#districts">districts</a></li>
-                <li><a href="#party">party</a></li>
-                <li><a href="#list">list</a></li>
+                <li><a href="#districts">Districts</a></li>
+                <li><a href="#add-candidate">Add Candidate</a></li>
+                <li><a href="#list">List</a></li>
                 <li><a href="#resources">Resources</a></li>
         </div><!-- /navbar -->
         <h2>HOME</h2>
@@ -61,8 +61,8 @@
         <div data-role="navbar" data-theme='b'>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#party">Party</a></li>
-                <li><a href="#list">list</a></li>
+                <li><a href="#add-candidate">Add Candidate</a></li>
+                <li><a href="#list">List</a></li>
                 <li><a href="#resources">Resources</a></li>
             </ul>
         </div><!-- /navbar -->
@@ -72,7 +72,7 @@
         <h3>This page will allow users to select a district and see candidates running </h3>
         <br />
         <h3>They can select which ones to add for their list to track which candidates to follow and/or donate to</h3>
-        <h3>Right now only district 1 and 2 work...kind of</h3>
+        <h3>Right now only district 1 and 2 work...and 1 has an odd behavior which will not allow selection at first. Need to figure that out</h3>
         <label for="select-type">Select District</label>
         <select name="select-district" id='select-district' onchange="getSelectedValue();">
             <option value="1">1</option>
@@ -98,9 +98,9 @@
 </div>
 
 <!-- ================================================================================ -->
-<!-- ===========================Party===================================================== -->
+<!-- ===========================ADD CANDIDATE======================================== -->
 <!-- ================================================================================ -->
-<div data-role="page" id="party">
+<div data-role="page" id="add-candidate">
     <div data-role="header" data-theme="a">
         <h2>My Washington Midterm Site</h2>
     </div>   
@@ -113,22 +113,35 @@
                 <li><a href="#list">list</a></li>
                 <li><a href="#resources">Resources</a></li>
         </div><!-- /navbar -->
-        <h2>Party</h2>
+        <h2>Add Custom Candidate</h2>
     </div>
 
 
 
     <!-- content -->
     <div data-role="content" data-theme='e'>
-        Test function code
-          <h3>This page will allow users to see candidates based on party affiliation</h3>
-        <label for="select-type">Select District</label>
-        <select name="select-type" id="select-type">
-            <option value="Democrat">DNC</option>
-            <option value="District-2">RNC</option>
-            <option value="District-3">Independent/other</option>>
-        </select>
-<!--I took something out here. no clue what-->
+        <h2>Enter a new candidate</h2>
+        Enter Candidate name <br />
+        <input type="text" value="" id="custom-candidate-name" />
+        Notes <br />
+        <input type="text" value="" id="custom-candidate-notes" />
+        District <br />
+        <input type="text" value="" id="custom-candidate-district">
+
+                    
+        <div class="ui-field-contain">
+            <label for="select-party">Select a Party</label>
+            <select name="select-party" id="select-party">
+              <option value="Democrat">Democrat</option>
+              <option value="Republican">Republican</option>
+              <option value="Independent">Independent</option>
+            </select>
+
+            
+            <input type="button" value="Click To Add Candidate" id="buttonAdd1" data-inline="true" />
+            <input type="button" value="Clear Data" id="buttonClear" data-inline="true" />
+          </div>
+
     </div>
 
 
@@ -153,8 +166,8 @@
         <div data-role="navbar" data-theme='b'>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#districts">district</a></li>
-                <li><a href="#party">party</a></li>
+                <li><a href="#districts">Districts</a></li>
+                <li><a href="#add-candidate">Add Candidate</a></li>
                 <li><a href="#resources">Resources</a></li>
             </ul>
         </div><!-- /navbar -->
@@ -168,9 +181,9 @@
 
     <input id="btn" type="button" value="Click for supported candidates"></input>
         <ul id="myCandidates">
-          <h3>Will have content box containing bulleted list of "tracked" candidate objects with hyperlinks for personal and donation websites. <h3>
+          <h3>Will have content box containing bulleted list of "tracked" candidate objects. Will be adding Hyper links later <h3>
               <br />
-            <h3>Will also allow users to add notes</h3>
+            <h3>Will also allow users to add notes (currently not functioning)</h3>
           </ul>
     </div>    
     <!-- notes footer -->
@@ -191,9 +204,9 @@
         <div data-role="navbar" data-theme='b'>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#districts">district</a></li>
-                <li><a href="#party">party</a></li>
-                <li><a href="#list">list</a></li>
+                <li><a href="#districts">Districts</a></li>
+                <li><a href="#add-candidate">Add Candidate</a></li>
+                <li><a href="#list">List</a></li>
             </ul>
         </div><!-- /navbar -->
     </div>  
