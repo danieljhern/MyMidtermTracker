@@ -1,9 +1,20 @@
 
 testCandidateArray = [
-    {district: 1, name: "D1Candidate1", party: "D"},
-    {district: 1, name: "D1Candidate2", party: "R"},
-    {district: 2, name: "D2Candidate1", party: "D"},
-    {district: 2, name: "D2Candidate2", party: "R"},
+    {district: 1, name: "Davina Duerr", party: "D"},
+    {district: 1, name: "Shelley Kloba", party: "D"},    
+    {district: 1, name: "John Peeples", party: "R"},    
+    {district: 1, name: "Jerry Zeiger-Buccola", party: "R"},
+    {district: 2, name: "Andrew Barkis", party: "R"},
+    {district: 2, name: "JT Wilcox", party: "R"},
+    {district: 3, name: "Marcus Riccelli", party: "D"},
+    {district: 3, name: "Timm Ormsby ", party: "D"},    
+    {district: 3, name: "Scotty Nicol", party: "R"},    
+    {district: 3, name: "Natalie Poulson", party: "R"},
+    {district: 4, name: "Ted Cummings", party: "D"},
+    {district: 4, name: "MJ Bolt", party: "R"},
+    {district: 3, name: "Suzanne Schmidt", party: "R"},
+    {district: 4, name: "Rob Chase ", party: "R"},
+    {district: 4, name: "Leonard Christian", party: "R"},
 
 ]
 
@@ -56,7 +67,9 @@ for(sv in testCandidateArray) {
 const element = document.getElementById("myBtn");
 
 //User Array which will hold Candidate class objects
-let testArray = []
+let userArray = []
+let includesArray = []
+
 
 let candidateObject =  function(cName, cNotes, cID, cParty) {
     this.testName = cName;
@@ -68,37 +81,35 @@ let candidateObject =  function(cName, cNotes, cID, cParty) {
 
 // Allows user to add Candidates from selected checkboxes
 function addToList() {
-    demo = document.getElementById("demo");
-    tCandidate = {};
-    
-    let checkboxes = document.querySelectorAll('input[name="checkbox-item"]:checked');
+ demo = document.getElementById("demo");
+ tCandidate = {};
+ let checkboxes = document.querySelectorAll('input[name="checkbox-item"]:checked');
 
+//check selected checkboxes to see if they are in the "includesArray" and pushes new object to 
+//"userArray" if not
+    checkboxes.forEach((checkbox) => {        
+    var duplicate = includesArray.includes(checkbox.id);
+        if (duplicate == false) {
+            tCandidate = "Added - "+ checkbox.parentElement.textContent;
+            tNotes = "";
+            var tID = checkbox.id;
+            var tVal = checkbox.value
+            var list = document.createElement('li');
+            list.id = tCandidate;
+            list.innerHTML = tCandidate;
+            tParty = tID.charAt(0)
 
-    checkboxes.forEach((checkbox) => {
-        if (testArray.includes(checkbox.id)) {
-            alert(checkbox.id)
-        }
-        else{
-
-    tCandidate = checkbox.parentElement.textContent;
-    tNotes = "";
-    var tID = checkbox.id;
-    var tVal = checkbox.value
-    var list = document.createElement('li');
-    list.id = tCandidate;
-    //need to creat value which will remove the begining
-    list.innerHTML = tCandidate;
-    tParty = tID.charAt(0)
-
-    demo.appendChild(list);
+            demo.appendChild(list);
     
     //add back tCandidate if name doesnt work
-         testArray.push(new candidateObject(tVal, tNotes, tID, tParty));
+         userArray.push(new candidateObject(tVal, tNotes, tID, tParty));
+         includesArray.push(tID);
 
     }
+    else {alert(checkbox.value + " " + "is already in your list")}
 
    });
-   console.log(testArray)
+   console.log(userArray)
 
 }
 
@@ -113,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => { //not sure if this is best
         var theList = document.getElementById("myCandidates");
         theList.innerHTML = "";
 
-    testArray.forEach(function (element, i) {
+    userArray.forEach(function (element, i) {
     var listItem = document.createElement('li');
     listItem.id = element.testID + "-li-id";
     listItem.innerHTML = element.testName  + "     Party: " + element.testParty;
@@ -121,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => { //not sure if this is best
     var InputItem = document.createElement("input");
     InputItem.id = "button-for-"+element.testID+"-notes";
     InputItem.type = "text";
-    InputItem.value = element.testName;
+    InputItem.value = element.testNotes;
 
 
     var inputBtn = document.createElement("button");
@@ -152,6 +163,8 @@ document.addEventListener('DOMContentLoaded', () => { //not sure if this is best
     document.getElementById(dbuttonid).addEventListener('click', removeCandidate);
     })})
 
+    
+
     //ADDS CUSTOM CANDIDATE TO USER ARRAY
     document.getElementById("buttonAdd1").addEventListener("click", function () {
        
@@ -178,7 +191,8 @@ document.addEventListener('DOMContentLoaded', () => { //not sure if this is best
 
         
 
-        testArray.push(new candidateObject(cCandName,cCandNotes,cCandID,cCandParty))
+        userArray.push(new candidateObject(cCandName,cCandNotes,cCandID,cCandParty));
+        
      });
      
      document.getElementById("buttonClear").addEventListener("click", function () {
@@ -190,15 +204,14 @@ document.addEventListener('DOMContentLoaded', () => { //not sure if this is best
 
 //ADDNOTE FUNCTION 
     function addNote(){
-        alert("function not working yet");
         
         bID = this.id;
         slicebID = bID.slice(11);
         textboxNotes = document.getElementById(bID+"-notes").value;
 
-        for (y in testArray){
-            if (slicebID == testArray[y].testID){
-                testArray[y].testNotes = textboxNotes
+        for (y in userArray){
+            if (slicebID == userArray[y].testID){
+                userArray[y].testNotes = textboxNotes
             }
         }
     }
@@ -223,11 +236,11 @@ document.addEventListener('DOMContentLoaded', () => { //not sure if this is best
 
       
 
-        for (p in testArray){
-            if (slicerID == testArray[p].testID){
+        for (p in userArray){
+            if (slicerID == userArray[p].testID){
  
-                const index = testArray.indexOf(testArray[p]);
-                testArray.splice(index, 1);
+                const index = userArray.indexOf(userArray[p]);
+                userArray.splice(index, 1);
                 parent.removeChild(listID);
                 parent.removeChild(btnID);
                 parent.removeChild(txtID);
